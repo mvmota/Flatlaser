@@ -1,0 +1,45 @@
+{%extends "template.html"%}
+
+{%block conteudo%}
+
+    <form method="post" action="/adicionar" enctype="multipart/form-data">
+
+        <fieldset>
+
+            <div class="mb-2">
+                <label for="arquivo" class="form-label">Selecione a imagem</label>
+                <input type = "file" id="arquivo" class="form-control" name="arquivo" accept=".jpg, .jpeg, .png">
+            </div>
+
+<!-- CODIGO DOS CAMPOS - MB para espaçamento e form-control para separar em linhas, for e id sao usados para 
+    habilitar o campo quando clicamos no nome-->
+
+            <div class ="mb-2">
+                <label for="txtNome">Nome do Produto:</label>
+                <input type="text" name="txtNome" id="txtNome" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtMaterial">Material:</label>
+                <input type="text" name="txtMaterial" id="txtMaterial" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtCor">Cor:</label>
+                <input type="text" name="txtCor" id="txtCor" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtTamanho">Tamanho:</label>
+                <input type="text" name="txtTamanho" id="txtTamanho" class="form-control">
+            </div>
+
+<!--CODIGO DO BOTAO - btn muda o estilo e btn-primary muda a cor do bota-->
+
+            <div>
+                <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
+            </div>
+
+        </fieldset>
+    </form>
+{%endblock%}   

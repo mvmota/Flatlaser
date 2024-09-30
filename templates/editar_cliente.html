@@ -1,0 +1,71 @@
+{%extends "template.html"%}
+
+{%block conteudo%}
+
+    <form method="post" action="{{ url_for ('atualizar2')}}" enctype="multipart/form-data">
+
+        <fieldset>
+
+            <figure class="img-thmbnail mb-2">
+                <img class="img-fluid" src="{{url_for('imagem', nome_imagem=album_produto) }}">
+            
+
+                <figcaption>
+                    <label for="arquivo" class="form-label">
+                        Selecione uma nova imagem
+                        <input type="file" name="arquivo" id="arquivo"
+                        accept = ".jpg, .jpeg, .png, .gif" class="form-control">
+                    </label>
+                </figcaption>
+            </figure>
+            <input type="hidden" name="txtId" value="{{cliente.id_cliente}}">
+
+
+<!-- CODIGO DOS CAMPOS - MB para espaçamento e form-control para separar em linhas, for e id sao usados para 
+    habilitar o campo quando clicamos no nome-->
+
+            <div class ="mb-2">
+                <label for="txtNome">Nome do Cliente:</label>
+                <input type="text" name="txtNome" id="txtNome" 
+                class="form-control" value="{{cliente.nome_cliente}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtidade">Idade:</label>
+                <input type="text" name="txtIdade" id="txtIdade"
+                 class="form-control" value="{{cliente.idade_cliente}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtCPF">CPF:</label>
+                <input type="text" name="txtCPF" id="txtCPF"
+                 class="form-control" value="{{cliente.CPF_cliente}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtEndereco">Endereço:</label>
+                <input type="text" name="txtEndereco" id="txtEndereco"
+                 class="form-control" value="{{cliente.endereco_cliente}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtEmail">E-Mail:</label>
+                <input type="text" name="txtEmail" id="txtEmail"
+                 class="form-control" value="{{cliente.email_cliente}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtTelefone">Telefone:</label>
+                <input type="text" name="txtTelefone" id="txtTelefone"
+                 class="form-control" value="{{cliente.telefone_cliente}}">
+            </div>
+
+<!--CODIGO DO BOTAO - btn muda o estilo e btn-primary muda a cor do bota-->
+
+            <div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+
+        </fieldset>
+    </form>
+{%endblock%}   

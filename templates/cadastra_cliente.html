@@ -1,0 +1,55 @@
+{%extends "template.html"%}
+
+{%block conteudo%}
+
+    <form method="post" action="/adicionar2" enctype="multipart/form-data">
+
+        <fieldset>
+
+            <div class="mb-2">
+                <label for="arquivo" class="form-label">Selecione a imagem</label>
+                <input type = "file" id="arquivo" class="form-control" name="arquivo" accept=".jpg, .jpeg, .png">
+            </div>
+
+<!-- CODIGO DOS CAMPOS - MB para espaçamento e form-control para separar em linhas, for e id sao usados para 
+    habilitar o campo quando clicamos no nome-->
+
+            <div class ="mb-2">
+                <label for="txtNome">Nome do Cliente:</label>
+                <input type="text" name="txtNome" id="txtNome" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtIdade">Idade:</label>
+                <input type="text" name="txtIdade" id="txtIdade" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtCPF">CPF:</label>
+                <input type="text" name="txtCPF" id="txtCPF" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtEndereco">Endereço:</label>
+                <input type="text" name="txtEndereco" id="txtEndereco" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtEmail">E-Mail:</label>
+                <input type="text" name="txtEmail" id="txtEmail" class="form-control">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtTelefone">Telefone:</label>
+                <input type="text" name="txtTelefone" id="txtTelefone" class="form-control">
+            </div>
+
+<!--CODIGO DO BOTAO - btn muda o estilo e btn-primary muda a cor do bota-->
+
+            <div>
+                <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
+            </div>
+
+        </fieldset>
+    </form>
+{%endblock%}   

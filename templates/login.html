@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!--carrega os estilos-->
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.css')}}">
+
+</head>
+<body>
+
+<!--exibe mensagem para o usuario ao digitar a senha-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="list-unstyled" id="messages">
+                {% for message in messages %}
+                    <li class="alert alert-danger">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <div class ="container">
+        <form method="post" action="/autenticar">
+
+            <fieldset>
+                <!--div quebra a linha para a parte de baixo, class="mb-2" da espaçamento,
+                id="" e for="" habilitam o clique no nome do campo-->
+                <legend>Entre com suas informações</legend>
+
+                <div class="mb-2">
+                    <label for="txtLogin">Login</label>
+                    <input type="text" name="txtLogin" id="txtLogin" class="form-control">
+                </div>
+
+                <div class="mb-2">
+                    <label for="txtSenha">Senha</label>
+                    <input type="password" name="txtSenha" id="txtSenha" class="form-control">
+                </div>
+
+                <div class="mb-2">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+
+            </fieldset>
+
+        </form>
+    </div>
+</body>
+</html>

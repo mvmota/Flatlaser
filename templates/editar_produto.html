@@ -1,0 +1,59 @@
+{%extends "template.html"%}
+
+{%block conteudo%}
+
+    <form method="post" action="{{ url_for ('atualizar')}}" enctype="multipart/form-data">
+
+        <fieldset>
+
+            <figure class="img-thmbnail mb-2">
+                <img class="img-fluid" src="{{url_for('imagem', nome_imagem=album_produto) }}">
+            
+
+                <figcaption>
+                    <label for="arquivo" class="form-label">
+                        Selecione uma nova imagem
+                        <input type="file" name="arquivo" id="arquivo"
+                        accept = ".jpg, .jpeg, .png, .gif" class="form-control">
+                    </label>
+                </figcaption>
+            </figure>
+            <input type="hidden" name="txtId" value="{{produto.id_produto}}">
+
+
+<!-- CODIGO DOS CAMPOS - MB para espaçamento e form-control para separar em linhas, for e id sao usados para 
+    habilitar o campo quando clicamos no nome-->
+
+            <div class ="mb-2">
+                <label for="txtNome">Nome do Produto:</label>
+                <input type="text" name="txtNome" id="txtNome" 
+                class="form-control" value="{{produto.nome_produto}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtMaterial">Material:</label>
+                <input type="text" name="txtMaterial" id="txtMaterial"
+                 class="form-control" value="{{produto.material_produto}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtCor">Cor:</label>
+                <input type="text" name="txtCor" id="txtCor"
+                 class="form-control" value="{{produto.cor_produto}}">
+            </div>
+
+            <div class ="mb-2">
+                <label for="txtTamanho">Tamanho:</label>
+                <input type="text" name="txtTamanho" id="txtTamanho"
+                 class="form-control" value="{{produto.tamanho_produto}}">
+            </div>
+
+<!--CODIGO DO BOTAO - btn muda o estilo e btn-primary muda a cor do bota-->
+
+            <div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+
+        </fieldset>
+    </form>
+{%endblock%}   
