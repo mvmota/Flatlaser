@@ -284,3 +284,55 @@ def sair():
 @app.route('/uploads/<nome_imagem>')
 def imagem(nome_imagem):
     return send_from_directory('uploads', nome_imagem)
+
+
+#####rota para a página HTML dashboard
+#@app.route('/dashboard')
+#def pagina_dashboard():
+
+#obriga estar logado para acessar a pagina cadastrar
+#    if session['usuario_logado'] == None or 'usuario_logado' not in session:
+ #       return redirect(url_for('login'))
+
+ #   return render_template('dashboard.html',
+ #                          titulo = 'dashboard')
+
+
+
+
+
+
+#gerar relatorio com pandas
+def contar_produtos_por_material():
+    resultado = db.session.query(Produto.material_produto, db.func.count(Produto.id_produto)).group_by(Produto.material_produto).all()
+    return resultado
+
+
+import pandas as pd
+
+def gerar_relatorio_produtos():
+    dados = contar_produtos_por_material()
+    df = pd.DataFrame(dados, columns=['Material', 'Quantidade'])
+    df.to_csv('relatorio_produtos.csv', index=False)
+    return df
+
+
+#grafico de barras
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def gerar_grafico():
+    df = gerar_relatorio_produtos()
+    plt.figure(figsize=(8, 5))
+    sns.barplot(x='Material', y='Quantidade', data=df)
+    plt.title('Quantidade de Produtos por Material')
+    plt.xlabel('Material')
+    plt.ylabel('Quantidade')
+    plt.savefig('static/grafico.png')  # Salva para exibir no site
+
+    #rotas para graficos
+
+@app.route('/dashboard')
+def dashboard():
+    gerar_grafico()
+    return render_template('dashboard.html', imagem='grafico.png')
