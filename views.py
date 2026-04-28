@@ -1,13 +1,19 @@
 #ARQUIVO DE ROTAS
 
 
-from flask import  render_template, request, redirect, session, flash, url_for, send_from_directory
+from flask import  render_template, request, redirect, session, flash, url_for, send_from_directory, render_template
 #importa as variaveis Produto e Usuario do models
 from models import Produto, Usuario, Cliente
 #importa as variaveis db(conexão com o banco) e app(chama o flask) de Estampa
 from Estampa import db, app
 from definicoes import recupera_imagem, deletar_imagem
 import time
+import io
+import base64
+import matplotlib.pyplot as plt
+
+
+
 
 #rota para a página HTML já feita
 @app.route('/')
@@ -336,3 +342,58 @@ def gerar_grafico():
 def dashboard():
     gerar_grafico()
     return render_template('dashboard.html', imagem='grafico.png')
+
+
+
+#grafico de idade
+@app.route('/dashboard_clientes')
+def dashboard_clientes():
+    # Buscar idades no banco
+    idades = [c.idade_cliente for c in Cliente.query.all()]
+
+    # Definir faixas
+    faixas = {
+        "-18": 0,
+        "19-30": 0,
+        "31-40": 0,
+        "41-50": 0,
+        "51-60": 0,
+        "60+": 0
+    }
+
+    for idade in idades:
+        if idade <= 18:
+            faixas["-18"] += 1
+        elif idade <= 30:
+            faixas["19-30"] += 1
+        elif idade <= 40:
+            faixas["31-40"] += 1
+        elif idade <= 50:
+            faixas["41-50"] += 1
+        elif idade <= 60:
+            faixas["51-60"] += 1
+        else:
+            faixas["60+"] += 1
+
+       # Filtrar apenas faixas com valores > 0
+    labels = [k for k, v in faixas.items() if v > 0]
+    valores = [v for v in faixas.values() if v > 0]
+
+
+    total = sum(valores)
+    porcentagens = [(v / total) * 100 if total > 0 else 0 for v in valores]
+
+    fig, ax = plt.subplots(figsize=(6,6))
+    ax.pie(valores, labels=[f"{l} ({p:.1f}%)" for l,p in zip(labels, porcentagens)],
+           autopct='%1.1f%%', startangle=90)
+    ax.set_title("Distribuição de Clientes por Faixa Etária")
+
+    # Converter para base64
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    grafico_clientes = base64.b64encode(img.getvalue()).decode('utf8')
+    plt.close()
+
+    return render_template("dashboard_clientes.html", grafico_clientes=grafico_clientes)
+
